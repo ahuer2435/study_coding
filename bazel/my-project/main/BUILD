@@ -8,7 +8,7 @@ cc_binary(
     name = "hello-world",
     srcs = ["hello-world.cc"],
     deps = [
-        ":hello-time",
+        ":hello-time",			#hello-time库
         "//lib:hello-greet",
     ],
 )
