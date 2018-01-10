@@ -1,0 +1,8 @@
+PROJECT(basic_geometric_drawing)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.10)
+#if(COMMAND cmake_policy)　　　　　　　　　　　　  
+#      cmake_policy(SET CMP0003 NEW)  
+#endif(COMMAND cmake_policy)  
+FIND_PACKAGE( OpenCV REQUIRED )
+ADD_EXECUTABLE(basic_geometric_drawing  basic_geometric_drawing.cpp)
+TARGET_LINK_LIBRARIES(basic_geometric_drawing ${OpenCV_LIBS})
