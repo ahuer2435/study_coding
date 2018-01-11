@@ -1,0 +1,8 @@
+PROJECT(rng_test)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.10)
+#if(COMMAND cmake_policy)　　　　　　　　　　　　  
+#      cmake_policy(SET CMP0003 NEW)  
+#endif(COMMAND cmake_policy)  
+FIND_PACKAGE( OpenCV REQUIRED )
+ADD_EXECUTABLE(rng_test  rng_test.cpp)
+TARGET_LINK_LIBRARIES(rng_test ${OpenCV_LIBS})
