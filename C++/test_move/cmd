@@ -1,0 +1,1 @@
+g++ test_move.cpp -std=c++11
