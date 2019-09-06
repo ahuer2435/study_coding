@@ -1,16 +1,26 @@
 #include <iostream>       // std::cout
 #include <thread>         // std::thread
-#include <mutex>          // std::mutex, std::lock_guard, std::adopt_lock
-#include <unistd.h>       //usleep()
+#include <mutex>          // std::mutex, std::lock_guard
+#include <stdexcept>      // std::logic_error
 
+std::mutex mtx;
 
-std::mutex mtx;           // mutex for critical section
+void print_even (int x) {
+  if (x%2==0) std::cout << x << " is even\n";
+  else throw (std::logic_error("not even"));
+}
 
 void print_thread_id (int id) {
-//  mtx.lock();
-  //std::lock_guard<std::mutex> lck(mtx, std::adopt_lock);
-  std::lock_guard<std::mutex> lck(mtx);		//构造函数加锁,析构函数解锁,一个线程加锁之后,其余要求加锁的线程等待,指导一个结束.
-  std::cout << "thread #" << id << '\n';
+  try {
+    // using a local lock_guard to lock mtx guarantees unlocking on destruction / exception:
+    std::lock_guard<std::mutex> lck (mtx);
+    //mtx.lock();
+    print_even(id);
+    //mtx.unlock();
+  }
+  catch (std::logic_error&) {
+    std::cout << "[exception caught]\n";
+  }
 }
 
 int main ()
@@ -21,6 +31,6 @@ int main ()
     threads[i] = std::thread(print_thread_id,i+1);
 
   for (auto& th : threads) th.join();
-  
+
   return 0;
 }

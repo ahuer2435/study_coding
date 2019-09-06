@@ -10,6 +10,7 @@ void print_thread_id (int id) {
   //std::lock_guard<std::mutex> lck(mtx, std::adopt_lock);
   std::lock_guard<std::mutex> lck(mtx);		//构造函数加锁,析构函数解锁,一个线程加锁之后,其余要求加锁的线程等待,指导一个结束.
   std::cout << "thread #" << id << '\n';
+  //mtx.unlock();
 }
 
 int main ()
